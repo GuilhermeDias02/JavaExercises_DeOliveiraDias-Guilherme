@@ -3,6 +3,6 @@ public class Exercice1{
         String name = "Alex";
         Integer age = 25;
 
-        System.out.println(name + 25);
+        System.out.println(name + age);
 	}
 }
