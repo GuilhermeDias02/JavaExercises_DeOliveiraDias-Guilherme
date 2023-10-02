@@ -16,7 +16,7 @@ public class Exercice1 {
         System.out.println("Contenu du stock: " + Exercice1.sum(stock));
 	}
 
-    public static Integer sum(ArrayList<Integer> unStock){
+    private static Integer sum(ArrayList<Integer> unStock){
         Integer res = 0;
 
         for(Integer s : unStock){
