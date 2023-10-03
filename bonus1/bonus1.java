@@ -30,11 +30,11 @@ public class bonus1 {
         //appel fonction recursive
     }
 
-    private static ArrayList<String> calcTronc(){
+    private static ArrayList<String> calcTronc(int nbr){
 
     }
 
-    private static ArrayList<String> calcEspaces(){
+    private static ArrayList<String> calcEspaces(int nbr){
 
     }
 }
