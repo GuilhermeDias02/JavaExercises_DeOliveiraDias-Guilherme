@@ -5,6 +5,7 @@ import java.awt.LayoutManager;
 import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.Map;
+import java.util.Random;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -16,7 +17,15 @@ import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 
-public class MyWindow extends  JFrame{
+public class MyWindow extends JFrame{
+
+    private static int[][] plateau = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}};
+    private static Random rand = new Random();
+    private static boolean joueur = rand.nextBoolean();
+    private static Map<String, JButton> buttons = new Hashtable<String, JButton>();
+    private static JLabel actionText = new JLabel("jwngowngow");
+    private static JTextField xField = new JTextField();
+    private static JTextField yField = new JTextField();
 
     public MyWindow(){
         super("Morpion");
@@ -24,8 +33,6 @@ public class MyWindow extends  JFrame{
         this.setSize(400, 400);
         this.setLocationRelativeTo(null);
 
-
-        Map<String, JButton> buttons= new Hashtable<String, JButton>();
         buttons.put("00", new JButton("\u0020"));
         buttons.put("01", new JButton("\u0020"));
         buttons.put("02", new JButton("\u0020"));
@@ -52,13 +59,6 @@ public class MyWindow extends  JFrame{
         plateau.setSize(400, 300);
 
         contentPane.add(plateau, BorderLayout.CENTER);
-
-        // JPanel action = new JPanel(null);
-        JLabel actionText = new JLabel("jwngowngow");
-        // action.setSize(400, 100);
-        // action.setLocation(0, 100);
-        // action.add(actionText);
-
         contentPane.add(actionText, BorderLayout.SOUTH);
     }
 
@@ -67,5 +67,62 @@ public class MyWindow extends  JFrame{
 
         MyWindow myWindow = new MyWindow();
         myWindow.setVisible(true);
+    }
+
+    private static void joueur(){
+        System.out.println("Joueur, c'est a votre tour. Entrez la ligne (0-2), puis la colonne (0-2) :");
+        int x = 0;
+        int y = 0;
+
+        x = Integer.parseInt(xField.getText);
+        y = Integer.parseInt(yField.getText);
+
+        if(plateau[x][y] != 0){
+            System.out.println("Cette case a déjà été jouée!");
+            joueur();
+        }
+
+        plateau[x][y] = 1;
+        printPlateau();
+
+        joueur = false;
+        jeu();
+    }
+
+    private static void ordi(){
+        System.out.println("Tour de l'ordinateur :");
+        Random randO = new Random();
+        int x = 0;
+        int y = 0;
+
+        x = randO.nextInt(3);
+        y = randO.nextInt(3);
+
+        if(plateau[x][y] != 0){
+            ordi();
+        }
+
+        plateau[x][y] = 2;
+        printPlateau();
+
+        joueur = true;
+        jeu();
+    }
+
+    private static boolean verifGO(){
+        // tres moche, a modifier dans le futur
+        if(
+            ((plateau[0][0] == plateau[0][1] && plateau[0][1] == plateau[0][2]) ||
+            (plateau[1][0] == plateau[1][1] && plateau[1][1] == plateau[1][2]) ||
+            (plateau[2][0] == plateau[2][1] && plateau[2][1] == plateau[2][2]) ||
+            (plateau[0][0] == plateau[1][0] && plateau[1][0] == plateau[1][0]) ||
+            (plateau[0][1] == plateau[1][1] && plateau[1][1] == plateau[2][1]) ||
+            (plateau[0][2] == plateau[1][2] && plateau[1][2] == plateau[2][2]) ||
+            (plateau[0][0] == plateau[1][1] && plateau[1][1] == plateau[2][2]) ||
+            (plateau[0][2] == plateau[1][1] && plateau[1][1] == plateau[2][0])) &&
+            (plateau[0][0] != 0 && plateau[1][1] != 0 && plateau[2][2] != 0)
+        ){
+            return true;
+        }
     }
 }
