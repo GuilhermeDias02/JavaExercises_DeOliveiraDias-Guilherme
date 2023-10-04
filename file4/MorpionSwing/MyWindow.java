@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.JTextPane;
 import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
@@ -48,16 +49,17 @@ public class MyWindow extends  JFrame{
         plateau.add(buttons.get("20"));
         plateau.add(buttons.get("21"));
         plateau.add(buttons.get("22"));
+        plateau.setSize(400, 300);
 
-        contentPane.add(plateau, BorderLayout.NORTH);
+        contentPane.add(plateau, BorderLayout.CENTER);
 
-        JPanel action = new JPanel(null);
-        JTextField actionText = new JTextField("jwngowngow");
-        action.setSize(400, 100);
-        action.setLocation(0, 100);
-        action.add(actionText);
+        // JPanel action = new JPanel(null);
+        JLabel actionText = new JLabel("jwngowngow");
+        // action.setSize(400, 100);
+        // action.setLocation(0, 100);
+        // action.add(actionText);
 
-        contentPane.add(action, BorderLayout.SOUTH);
+        contentPane.add(actionText, BorderLayout.SOUTH);
     }
 
     public static void main(String[] args) throws Exception{
