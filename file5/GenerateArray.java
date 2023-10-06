@@ -22,8 +22,8 @@ public class GenerateArray {
         }
     }
 
-    public static void addItem(){
-        
+    public static void addItem(int i){
+        list.add(i);
     }
 
     public static ArrayList<Integer> getList(){
