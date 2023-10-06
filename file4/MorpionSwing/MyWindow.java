@@ -2,6 +2,7 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.LayoutManager;
+import java.awt.event.ActionListener;
 import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.Map;
@@ -26,6 +27,7 @@ public class MyWindow extends JFrame{
     private static JLabel actionText = new JLabel("jwngowngow");
     private static JTextField xField = new JTextField();
     private static JTextField yField = new JTextField();
+    private static JButton placer = new JButton("Placer");
 
     public MyWindow(){
         super("Morpion");
@@ -60,6 +62,9 @@ public class MyWindow extends JFrame{
 
         contentPane.add(plateau, BorderLayout.CENTER);
         contentPane.add(actionText, BorderLayout.SOUTH);
+        contentPane.add(xField);
+        contentPane.add(yField);
+        contentPane.add(placer);
     }
 
     public static void main(String[] args) throws Exception{
@@ -69,13 +74,30 @@ public class MyWindow extends JFrame{
         myWindow.setVisible(true);
     }
 
+    private static void jeu(){
+        if(joueur){
+            joueur();
+        }
+        else{
+            ordi();
+        }
+    }
+
     private static void joueur(){
         System.out.println("Joueur, c'est a votre tour. Entrez la ligne (0-2), puis la colonne (0-2) :");
         int x = 0;
         int y = 0;
 
-        x = Integer.parseInt(xField.getText);
-        y = Integer.parseInt(yField.getText);
+        placer.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if((xField.getText() != null && xField.getText() != "") && (yField.getText() != null && yField.getText() != "")){
+                    x = Integer.parseInt(xField.getText());
+                    y = Integer.parseInt(yField.getText());
+                }
+            }
+        });
 
         if(plateau[x][y] != 0){
             System.out.println("Cette case a déjà été jouée!");
@@ -83,7 +105,6 @@ public class MyWindow extends JFrame{
         }
 
         plateau[x][y] = 1;
-        printPlateau();
 
         joueur = false;
         jeu();
@@ -103,7 +124,6 @@ public class MyWindow extends JFrame{
         }
 
         plateau[x][y] = 2;
-        printPlateau();
 
         joueur = true;
         jeu();
@@ -124,5 +144,7 @@ public class MyWindow extends JFrame{
         ){
             return true;
         }
+
+        return false;
     }
 }
